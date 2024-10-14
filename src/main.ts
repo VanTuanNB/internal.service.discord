@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import type { MicroserviceOptions } from '@nestjs/microservices';
 import GracefulShutdown from 'http-graceful-shutdown';
+import { AppConfigEnum } from './core/configs/app.config';
 import { environment } from './core/configs/environment.config';
 import { MainModule } from './main.module';
 import { microserviceClientOptions } from './protos/grpc.proto';
 
 async function bootstrap() {
     const app = await NestFactory.create(MainModule);
+    app.setGlobalPrefix(AppConfigEnum.PREFIX);
     app.connectMicroservice<MicroserviceOptions>(microserviceClientOptions);
     await app.startAllMicroservices();
     const port = Number(environment.PORT_SERVICE) || 5001;
