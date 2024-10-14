@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package common;
+
+message MessageInfo {
+  string code = 1;
+  string message = 2;
+}
+
+message RequestInfo {
+  string organization = 1;
+  string profileId = 2;
+  int32 page = 3;
+  int32 limit = 4;
+  string sortBy = 5;
+  string orderBy = 6;
+  string userId = 7;
+  string propertyId = 8;
+  string templateId = 9;
+}
+
+message ResponseInfo {
+  string organization = 1;
+  int32 page = 2;
+  int32 limit = 3;  
+  int32 total = 4;
+  string version = 5;
+  repeated MessageInfo errors = 6;
+}
+
+message KeyValue {
+  string key = 1;
+  int32 value = 2;
+}

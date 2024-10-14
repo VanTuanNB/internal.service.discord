@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package fileTemplate;
+
+import "./common.proto";
+
+service FileTemplateService {
+  rpc CreateFileTemplate(CreateFileTemplateRequest) returns (CreateFileTemplateResponse) {}
+  rpc UpdateFileTemplate(UpdateFileTemplateRequest) returns (UpdateFileTemplateResponse) {}
+  rpc GetFileTemplateByType(CheckFileTemplateRequest) returns (FileTemplateByIdResponse) {}
+  rpc GetFileTemplatesByType(GetFileTemplatesRequest) returns (FileTemplatesResponse) {}
+}
+
+
+message FileTemplateResponse {
+  string id = 0;
+  string type = 1;
+  string documentId = 2;  
+  string url = 3;   
+  string createdAt = 4;
+  string modifiedAt = 5;
+  string propertyId = 6;
+  string templateId = 7;
+}
+
+message CheckFileTemplateRequest {
+  RequestInfo requestInfo = 1;
+  string type = 2; 
+}
+
+message GetFileTemplatesRequest {
+  RequestInfo requestInfo = 1;
+  string type = 2; 
+}
+
+message FileTemplateByIdResponse {
+  ResponseInfo responseInfo = 1;
+  FileTemplateResponse data = 2;
+}
+
+message FileTemplatesResponse {
+  ResponseInfo responseInfo = 1;
+  repeated FileTemplateResponse data = 2;
+}
+
+message FileTemplateIdResponse {
+  string id = 0;
+}
+
+message CreateFileTemplateRequest {
+  RequestInfo requestInfo = 0;
+  string type = 1;
+  string documentId = 2;  
+  string url = 3;  
+}
+
+message CreateFileTemplateResponse {
+  ResponseInfo responseInfo = 1;
+  FileTemplateIdResponse data = 2;
+}
+
+message UpdateFileTemplateRequest { 
+  string id = 0;  
+  string type = 1;
+  string documentId = 2;  
+  string url = 3; 
+  RequestInfo requestInfo = 4;
+}
+
+message UpdateFileTemplateResponse {
+  ResponseInfo responseInfo = 1;
+  FileTemplateIdResponse data = 2;
+}
+
