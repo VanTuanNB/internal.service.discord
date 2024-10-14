@@ -5,6 +5,6 @@ export const microserviceClientOptions: ClientOptions = {
     transport: Transport.TCP,
     options: {
         host: '0.0.0.0',
-        port: environment.PORT_GRPC || 3456,
+        port: Number(environment.PORT_GRPC) || 3456,
     },
 };
