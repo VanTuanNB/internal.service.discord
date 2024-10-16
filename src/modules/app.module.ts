@@ -1,8 +1,7 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [AuthModule],
-    exports: [AuthModule],
+    imports: [forwardRef(() => AuthModule)],
 })
 export class AppModule {}

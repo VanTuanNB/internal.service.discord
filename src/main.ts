@@ -1,5 +1,6 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, PartialGraphHost } from '@nestjs/core';
 import type { MicroserviceOptions } from '@nestjs/microservices';
+import fs from 'fs';
 import GracefulShutdown from 'http-graceful-shutdown';
 import { AppConfigEnum } from './core/configs/app.config';
 import { environment } from './core/configs/environment.config';
@@ -7,7 +8,10 @@ import { MainModule } from './main.module';
 import { microserviceClientOptions } from './protos/grpc.proto';
 
 async function bootstrap() {
-    const app = await NestFactory.create(MainModule);
+    const app = await NestFactory.create(MainModule, {
+        abortOnError: false,
+        snapshot: true,
+    });
     app.setGlobalPrefix(AppConfigEnum.PREFIX);
     app.connectMicroservice<MicroserviceOptions>(microserviceClientOptions);
     await app.startAllMicroservices();
@@ -26,4 +30,7 @@ async function bootstrap() {
     process.on('SIGINT', shutDown);
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+    fs.writeFileSync('graph.json', PartialGraphHost.toString() ?? '');
+    process.exit(1);
+});
