@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource DiscordDbDev {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model channels {
+  id          String @id @map("_id")
+  v           Int    @map("__v")
+  createdAt   String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lastMessage Json?
+  name        String
+  ownerId     String
+  serverId    String
+  topic       String
+  type        Int
+  updatedAt   String
+}
+
+model friends {
+  id             String   @id @map("_id")
+  v              Int      @map("__v")
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  acceptRequests Json?
+  createdAt      String
+  friends        String[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  sendRequests   Json?
+  updatedAt      String
+  userId         String   @unique(map: "userId_1")
+}
+
+model guild_channels {
+  id        String   @id @map("_id")
+  v         Int      @map("__v")
+  channels  String[]
+  createdAt String
+  serverId  String
+  updatedAt String
+  userId    String
+
+  @@map("guild-channels")
+}
+
+model invites {
+  id        String   @id @map("_id")
+  v         Int      @map("__v")
+  createdAt String
+  expire    String
+  receivers String[]
+  sender    String
+  serverId  String
+  updatedAt String
+}
+
+model profiles {
+  id        String  @id @map("_id")
+  v         Int     @map("__v")
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  avatar    Json?
+  createdAt String
+  email     String  @unique(map: "email_1")
+  id_       String? @unique(map: "id_1") @map("id")
+  name      String
+  updatedAt String
+  userId    String  @unique(map: "userId_1")
+}
+
+model roles {
+  id String @id @default(auto()) @map("_id") @DiscordDbDev.ObjectId
+}
+
+model servers {
+  id           String   @id @map("_id")
+  v            Int      @map("__v")
+  createdAt    String
+  guildChannel String
+  members      String[]
+  name         String
+  ownerId      String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  thumbnail    Json?
+  updatedAt    String
+}
+
+model unverify_accounts {
+  id       String @id @default(auto()) @map("_id") @DiscordDbDev.ObjectId
+  /// Field referred in an index, but found no data to define the type.
+  email    Json?  @unique(map: "email_1")
+  /// Field referred in an index, but found no data to define the type.
+  password Json?  @unique(map: "id_1")
+
+  @@map("unverify-accounts")
+}
+
+model users {
+  id           String  @id @map("_id")
+  v            Int     @map("__v")
+  createdAt    String
+  id_          String? @unique(map: "id_1") @map("id")
+  password     String
+  nickname     String
+  profileId    String
+  refreshToken String  @unique(map: "refreshToken_1")
+  updatedAt    String
+}

@@ -19,7 +19,8 @@
         "db:migrate-up": "prisma migrate deploy",
         "db:clean": "prisma migrate reset",
         "db:init": "npm run db:migrate-save --name 'initial version' && npm run db:migrate-up && npm run seed",
-        "prisma:generate": "prisma generate"
+        "generate-schema": "cat src/*/*.prisma > prisma/schema.prisma",
+        "migrate:db-dev": "npm run generate-schema && prisma migrate dev --preview-feature --name $npm_config_name && prisma generate"
     },
     "devDependencies": {
         "@nestjs/cli": "^10.4.5",
@@ -45,7 +46,9 @@
         "@nestjs/platform-express": "^10.4.4",
         "@prisma/client": "^5.21.0",
         "class-validator": "^0.14.1",
-        "http-graceful-shutdown": "^3.1.13"
+        "http-graceful-shutdown": "^3.1.13",
+        "rxjs": "^7.8.1",
+        "uuid": "^10.0.0"
     },
     "jest": {
         "moduleFileExtensions": [
@@ -63,5 +66,8 @@
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"
+    },
+    "prisma": {
+        "schema": "src/databases/schema.prisma"
     }
 }

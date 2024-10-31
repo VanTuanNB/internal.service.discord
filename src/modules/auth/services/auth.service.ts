@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import type { LoginDto } from '../dtos/login.dto';
+import { ResponseHandler } from '../../../core/common/helpers/response-handler.helper';
+import { PrismaService } from '../../../databases/prisma.service';
+import type { LoginDto } from '../dto/login.dto';
 
 @Injectable()
 export class AuthService {
-    constructor() {
-        console.log('onInit AuthService', this);
-    }
+    constructor(private readonly prismaService: PrismaService) {}
 
     async login(loginDto: LoginDto) {
-        // Xử lý logic đăng nhập tại đây
-        return { message: 'Logged in successfully' };
+        try {
+            return new ResponseHandler(200, true, await this.prismaService.testing.fields, 'testing');
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 }
