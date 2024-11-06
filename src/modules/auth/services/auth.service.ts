@@ -9,7 +9,10 @@ export class AuthService {
 
     async login(loginDto: LoginDto) {
         try {
-            return new ResponseHandler(200, true, await this.prismaService.testing.fields, 'testing');
+            console.log('prismaService', this.prismaService);
+            const user = await this.prismaService.servers.findMany();
+            console.log('user', user);
+            return new ResponseHandler(200, true, null, 'testing');
         } catch (error) {
             console.log('error', error);
         }
