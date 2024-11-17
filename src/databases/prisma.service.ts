@@ -1,18 +1,9 @@
-import {
-    Global,
-    Injectable,
-    Logger,
-    type INestApplication,
-    type OnModuleDestroy,
-    type OnModuleInit,
-} from '@nestjs/common';
+import { Injectable, Logger, type INestApplication, type OnModuleDestroy, type OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
-@Global()
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
     private readonly logger = new Logger(PrismaService.name);
-
     constructor() {
         super({
             log: [
@@ -37,7 +28,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     }
     async onModuleInit() {
         await this.$connect();
-        this.$on('error' as never, ({ message }) => {
+        this.$on('error' as never, ({ message }: { message: any }) => {
             this.logger.error(message);
         });
         this.$on('warn' as never, ({ message }) => {

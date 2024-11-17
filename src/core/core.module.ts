@@ -1,13 +1,8 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
-import { CatchExceptionFilter } from './common/filters/catch-exception.filter';
+import { FiltersModule } from './common/filters/filter.module';
+import { PipesModule } from './common/pipes/pipe.module';
 @Module({
-    providers: [
-        {
-            provide: APP_FILTER,
-            useClass: CatchExceptionFilter,
-        },
-    ],
-    exports: [],
+    imports: [FiltersModule, PipesModule],
+    exports: [FiltersModule, PipesModule],
 })
 export class CoreModule {}

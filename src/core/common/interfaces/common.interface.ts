@@ -13,3 +13,8 @@ export interface IResponseServer<T = any> {
     message: string;
     version: string;
 }
+
+export type IMessageError = {
+    field: string;
+    message: string;
+};
