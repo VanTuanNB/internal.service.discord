@@ -13,6 +13,7 @@ export interface Response<T> {
 export class ResponseTransformInterceptor<T> implements NestInterceptor<T, Response<T>> {
     constructor(private reflector: Reflector) {}
     intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
+        console.log('context', context);
         return next.handle().pipe(
             map((data) => {
                 return {

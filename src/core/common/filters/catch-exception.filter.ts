@@ -16,6 +16,7 @@ export class CatchExceptionFilter implements ExceptionFilter {
     constructor(@Inject(HttpAdapterHost) private readonly httpAdapterHost: HttpAdapterHost) {}
 
     catch(exception: BadRequestException, host: ArgumentsHost): any {
+        console.log('exception', exception);
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const httpStatus =

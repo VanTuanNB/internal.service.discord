@@ -1,6 +1,8 @@
 import { type ArgumentMetadata, type PipeTransform, Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
+import { BadRequestExceptionCustom } from '../filters/customs/bad-exception.filter';
+import { ResponseHandler } from '../helpers/response-handler.helper';
 import type { IMessageError } from '../interfaces/common.interface';
 
 @Injectable()
@@ -15,7 +17,7 @@ export class ValidationPipe implements PipeTransform {
             forbidUnknownValues: true,
         });
         if (validation.length > 0) {
-            throw this.getMessageError(validation);
+            throw new BadRequestExceptionCustom(ResponseHandler.BadRequest(this.getMessageError(validation)));
         }
         return value;
     }

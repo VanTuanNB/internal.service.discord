@@ -13,7 +13,7 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
 
     public static InternalServer() {
         return {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
             isSuccess: false,
             message: 'Internal Server Error',
             data: null,
@@ -24,7 +24,7 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
 
     public static Unauthorized() {
         return {
-            status: HttpStatus.UNAUTHORIZED,
+            statusCode: HttpStatus.UNAUTHORIZED,
             isSuccess: false,
             message: 'Unauthorized',
             data: null,
@@ -35,7 +35,7 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
 
     public static ForbiddenAccess() {
         return {
-            status: HttpStatus.FORBIDDEN,
+            statusCode: HttpStatus.FORBIDDEN,
             isSuccess: false,
             message: 'Forbidden Access',
             data: null,
@@ -46,7 +46,7 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
 
     public static EndpointNotFound() {
         return {
-            status: HttpStatus.NOT_FOUND,
+            statusCode: HttpStatus.NOT_FOUND,
             isSuccess: false,
             message: 'Endpoint Not Found',
             data: null,
@@ -57,7 +57,7 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
 
     public static BadRequest(errors: any) {
         return {
-            status: HttpStatus.BAD_REQUEST,
+            statusCode: HttpStatus.BAD_REQUEST,
             isSuccess: false,
             message: 'Bad Request',
             data: null,
