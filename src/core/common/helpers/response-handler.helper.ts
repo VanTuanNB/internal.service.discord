@@ -3,6 +3,8 @@ import type { IResponseServer } from '../interfaces/common.interface';
 
 export class ResponseHandler<T = any> implements IResponseServer<T> {
     public version = '1.0.0';
+    public permissionCode = null;
+    public requestId = null;
     constructor(
         public statusCode: number,
         public isSuccess: boolean,
@@ -18,6 +20,8 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
             message: 'Internal Server Error',
             data: null,
             errors: null,
+            permissionCode: null,
+            requestId: null,
             version: '1.0.0',
         };
     }
@@ -29,6 +33,8 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
             message: 'Unauthorized',
             data: null,
             errors: null,
+            permissionCode: null,
+            requestId: null,
             version: '1.0.0',
         };
     }
@@ -40,6 +46,8 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
             message: 'Forbidden Access',
             data: null,
             errors: null,
+            permissionCode: null,
+            requestId: null,
             version: '1.0.0',
         };
     }
@@ -51,6 +59,8 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
             message: 'Endpoint Not Found',
             data: null,
             errors: null,
+            permissionCode: null,
+            requestId: null,
             version: '1.0.0',
         };
     }
@@ -62,6 +72,8 @@ export class ResponseHandler<T = any> implements IResponseServer<T> {
             message: 'Bad Request',
             data: null,
             errors: errors,
+            permissionCode: null,
+            requestId: null,
             version: '1.0.0',
         };
     }

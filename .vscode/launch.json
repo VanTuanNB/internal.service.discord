@@ -37,7 +37,7 @@
 
             // The arguments to pass to the `bun` executable, if any.
             // Unlike `args`, these are passed to the executable itself, not the program.
-            "runtimeArgs": ["--inspect=ws://localhost:2607/ec4pokggxv5"]
+            "runtimeArgs": ["--inspect=ws://localhost:2607/sr3zqsv2b8n"]
         },
         {
             "type": "bun",
@@ -45,7 +45,7 @@
             "name": "Attach to Bun",
             // The URL of the WebSocket inspector to attach to.
             // This value can be retrieved by using `bun --inspect`.
-            "url": "ws://localhost:2607/ec4pokggxv5"
+            "url": "ws://localhost:2607/sr3zqsv2b8n"
         }
     ]
 }

@@ -1,10 +1,10 @@
-import { type ArgumentMetadata, type PipeTransform, Injectable } from '@nestjs/common';
+import { type ArgumentMetadata, type PipeTransform, Global, Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import { BadRequestExceptionCustom } from '../filters/customs/bad-exception.filter';
-import { ResponseHandler } from '../helpers/response-handler.helper';
 import type { IMessageError } from '../interfaces/common.interface';
 
+@Global()
 @Injectable()
 export class ValidationPipe implements PipeTransform {
     public async transform(value: any, { metatype, type, data }: ArgumentMetadata) {
@@ -17,7 +17,7 @@ export class ValidationPipe implements PipeTransform {
             forbidUnknownValues: true,
         });
         if (validation.length > 0) {
-            throw new BadRequestExceptionCustom(ResponseHandler.BadRequest(this.getMessageError(validation)));
+            throw new BadRequestExceptionCustom(this.getMessageError(validation));
         }
         return value;
     }

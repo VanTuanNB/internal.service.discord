@@ -12,6 +12,9 @@ export interface IResponseServer<T = any> {
           };
     message: string;
     version: string;
+    permissionCode: string | null;
+    requestId: string | null;
+    errors?: any;
 }
 
 export type IMessageError = {
