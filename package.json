@@ -68,8 +68,5 @@
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"
-    },
-    "prisma": {
-        "schema": "src/databases/schema.prisma"
     }
 }
