@@ -18,6 +18,6 @@ export interface IResponseServer<T = any> {
 }
 
 export type IMessageError = {
-    field: string;
+    code: string;
     message: string;
 };

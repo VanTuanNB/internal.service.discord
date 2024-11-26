@@ -10,6 +10,7 @@ export class LoginDto {
     password: string;
 
     constructor(params: any) {
+        console.log('params pass into constructor', params);
         this.username = params.username;
         this.password = params.password;
     }

@@ -13,6 +13,11 @@ export class AuthController {
 
     @Post('pipe')
     async pipe(@Body() a: string) {
-        return new ResponseHandler(200, true, null, 'Success', null);
+        return new ResponseHandler(200, true, null, 'Success', [
+            {
+                code: '123',
+                message: 'Error neee',
+            },
+        ]);
     }
 }

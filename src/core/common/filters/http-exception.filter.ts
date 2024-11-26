@@ -1,11 +1,4 @@
-import {
-    BadRequestException,
-    Catch,
-    HttpException,
-    HttpStatus,
-    InternalServerErrorException,
-    type ArgumentsHost,
-} from '@nestjs/common';
+import { BadRequestException, Catch, HttpException, HttpStatus, type ArgumentsHost } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import type { Response } from 'express';
 import { ResponseHandler } from '../helpers/response-handler.helper';
@@ -25,19 +18,19 @@ export class HttpCatchExceptionFilter extends BaseExceptionFilter {
         let message = this.getErrorMessage(exception);
         let errors = this.getErrors(exception);
 
-        if (exception instanceof BadRequestExceptionCustom || exception instanceof InternalServerErrorException) {
-            message = exception.message;
-            errors = [{ code: exception.getResponse()?.toString(), message: exception.message }];
-        }
+        // if (exception instanceof BadRequestExceptionCustom || exception instanceof InternalServerErrorException) {
+        //     message = exception.message;
+        //     errors = [{ code: exception.getResponse()?.toString(), message: exception.message }];
+        // }
 
         const errorResponse: IResponseServer<null> = {
-            requestId: requestId,
+            statusCode: status,
             isSuccess: false,
             data: null,
             message: message,
             errors: errors,
+            requestId: requestId,
             permissionCode: permissionCode,
-            statusCode: status,
             version: '1.0.0',
         };
         if (exception['data']) {
@@ -65,8 +58,8 @@ export class HttpCatchExceptionFilter extends BaseExceptionFilter {
         // convert statusCode = 200 if status is 400 (BadRequest)
     };
 
-    private getErrorMessage = (exception: unknown): string => {
-        return String(exception);
+    private getErrorMessage = (exception: any): string => {
+        return exception?.message || String(exception);
     };
 
     private getErrors = (exception: any): any[] => {
