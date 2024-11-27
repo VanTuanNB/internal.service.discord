@@ -1,10 +1,4 @@
-import {
-    BadGatewayException,
-    Injectable,
-    type CallHandler,
-    type ExecutionContext,
-    type NestInterceptor,
-} from '@nestjs/common';
+import { Injectable, type CallHandler, type ExecutionContext, type NestInterceptor } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import type { ResponseHandler } from '../helpers/response-handler.helper';
@@ -15,7 +9,6 @@ export class ResponseTransformInterceptor<T> implements NestInterceptor<T, Respo
     constructor() {}
     intercept(context: ExecutionContext, next: CallHandler): Observable<ResponseHandler<T>> {
         const response = context.switchToHttp().getResponse();
-        response.status(context.switchToHttp().getResponse().statusCode);
         return next.handle().pipe(
             map((data) => {
                 return data;
@@ -30,7 +23,7 @@ export class ResponseTransformInterceptor<T> implements NestInterceptor<T, Respo
                 //     data,
                 // };
             }),
-            catchError((err) => throwError(() => new BadGatewayException())),
+            catchError((err) => throwError(err)),
         );
     }
 }

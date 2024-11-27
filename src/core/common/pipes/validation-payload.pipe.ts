@@ -6,10 +6,9 @@ import type { IMessageError } from '../interfaces/common.interface';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform {
-    public async transform(value: any, { metatype, type, data }: ArgumentMetadata) {
+    public async transform(value: any, { metatype }: ArgumentMetadata) {
         if (!metatype) return value;
-        const a = new metatype({ username: '123', password: '123' });
-        const object = plainToInstance(metatype, { username: '123', password: '123' });
+        const object = plainToInstance(metatype, value);
         const validation = await validate(object, {
             // Tắt thông báo lỗi mặc định của class-validator
             // validationError: false,

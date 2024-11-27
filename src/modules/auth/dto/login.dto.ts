@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import type { ILoginFilter } from '../interfaces/login.interface';
 
-export class LoginDto {
+export class LoginDto implements ILoginFilter {
     @IsString()
     @IsNotEmpty()
     username: string;
@@ -9,9 +10,8 @@ export class LoginDto {
     @IsNotEmpty()
     password: string;
 
-    constructor(params: any) {
-        console.log('params pass into constructor', params);
-        this.username = params.username;
-        this.password = params.password;
+    constructor(params: ILoginFilter) {
+        this.username = params?.username;
+        this.password = params?.password;
     }
 }
